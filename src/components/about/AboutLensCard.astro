@@ -1,0 +1,18 @@
+---
+interface Props {
+  label: string;
+  items: string[];
+  tone: 'paper' | 'notebook';
+}
+
+const { label, items, tone } = Astro.props;
+---
+
+<article class:list={['about-lens-card', `about-lens-card--${tone}`]}>
+  <h3 class="about-lens-card__label">{label}</h3>
+  <ul class="about-lens-card__list">
+    {items.map((item) => (
+      <li>{item}</li>
+    ))}
+  </ul>
+</article>

@@ -1,0 +1,19 @@
+# Dependencies and build
+node_modules/
+dist/
+.astro/
+
+# OS and editor
+.DS_Store
+.DS_Store?
+._*
+.vscode/
+.idea/
+
+# Env and secrets
+.env
+.env.*
+
+# Old site copies — not part of the live Astro site
+minima-master/
+new/

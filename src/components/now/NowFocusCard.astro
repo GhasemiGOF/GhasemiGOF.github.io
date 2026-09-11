@@ -1,0 +1,15 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const { title, description, icon } = Astro.props;
+---
+
+<article class="now-focus-card">
+  <span class="now-focus-card__icon" aria-hidden="true">{icon}</span>
+  <h3 class="now-focus-card__title">{title}</h3>
+  <p class="now-focus-card__desc">{description}</p>
+</article>

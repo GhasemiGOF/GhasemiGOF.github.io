@@ -1,0 +1,12 @@
+---
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<article class="home-current-item">
+  <span class="home-current-item__dot" aria-hidden="true"></span>
+  <p class="home-current-item__text">{text}</p>
+</article>

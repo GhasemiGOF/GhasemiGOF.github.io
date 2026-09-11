@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import QuestionCard from '../components/research/QuestionCard.astro';
+import NowFocusCard from '../components/now/NowFocusCard.astro';
+import NowMotionCard from '../components/now/NowMotionCard.astro';
+import NowWritingCard from '../components/now/NowWritingCard.astro';
+import NowPulse from '../components/now/NowPulse.astro';
+
+const updated = 'September 11, 2026';
+
+const focusAreas = [
+  {
+    icon: '①',
+    title: 'Privileged channels stay in part 1',
+    description:
+      'GFP, SAM, and expert clicks are allowed to write a label. They are not allowed to be an input at test time, and they are not allowed to be the metric I report as the scientific claim.',
+  },
+  {
+    icon: '②',
+    title: 'The metric has to match the claim',
+    description:
+      'Clicks, not pixel Dice against machine masks. Detection and class separately. Geometry and type mass separately. If a dataset refuses to move, I keep it.',
+  },
+  {
+    icon: '③',
+    title: 'What structure costs',
+    description:
+      'Neighborhoods are not free. TopoTrack buys kNN and pays in type. SporeAI inherits the blind spots of the label recipe. That tradeoff is the result, not a footnote.',
+  },
+];
+
+const inMotion: {
+  title: string;
+  description: string;
+  icon: 'shadonet' | 'spore' | 'topo';
+  href: string;
+  status?: string;
+}[] = [
+  {
+    title: 'ShadoNet',
+    description:
+      'Paper in Bioinformatics (2026). The working problem is still the one the paper has to survive: did the model learn nucleus morphology, or stain? PanNET moves. SHIDC almost does not. I am keeping that disagreement in the next version.',
+    icon: 'shadonet' as const,
+    href: '/projects/shadonet',
+    status: 'Bioinformatics 2026',
+  },
+  {
+    title: 'SporeAI',
+    description:
+      'Manuscript under group revision; it should be ready soon. Phase-only 7-class nnU-Net on Bacillus. End-to-end 0.855 at expert clicks, and that number is vegetative-heavy. Mature is the weakest class, not stage 1.',
+    icon: 'spore' as const,
+    href: '/projects/sporeai',
+    status: 'Under group revision',
+  },
+  {
+    title: 'TopoTrack',
+    description:
+      'Manuscript under group revision; it should be ready soon. Held-out freeze, 10 September: structure-aware FGW beats SpaTrack on spatial r and kNN@8 on 7/7 units, and loses type mass. That tradeoff stays in the draft.',
+    icon: 'topo' as const,
+    href: '/projects/topotrack',
+    status: 'Under group revision',
+  },
+];
+
+const questions = [
+  {
+    icon: '🔬',
+    question:
+      'Why does PanNET move and SHIDC barely move — stain, class definition, or the circle fallback? Until I can say, the morphology claim is not portable.',
+    href: '/blog/research-notes/morphology-before-accuracy',
+  },
+  {
+    icon: '🧫',
+    question:
+      'If phase and GFP disagree on the same cell, is that noise, a feature, or a slice I have to report separately? Mature spores are often phase-bright and GFP-dark. Treating fluorescence as the class definition misses the end of the program.',
+  },
+  {
+    icon: '↔',
+    question:
+      'What spatial negative control would falsify a structure-aware claim? A shuffled-coordinate pair that still “wins” kNN would. I do not have that plot yet.',
+  },
+  {
+    icon: '◐',
+    question:
+      'Do soft stage targets fix the errors the hard maps already admit — vegetative vs stage 1, mature leakage — or do they just smear a bad rule?',
+  },
+  {
+    icon: '⚖️',
+    question:
+      'After reading a draft, can someone not in these notes answer: what would falsify this claim? If they cannot, the evaluation section is not done.',
+    href: '/blog/research-questions/what-makes-an-evaluation-clinically-meaningful',
+  },
+];
+
+const writingQueue = [
+  { title: 'Soft vs hard stage labels: what the comparison is allowed to say', icon: '🧫' },
+  { title: 'Why SHIDC does not move, and why I will not average it away', icon: '🔬' },
+  { title: 'The type-mass cost of buying kNN', icon: '↔' },
+  { title: 'A failure contract for structure-aware transport', icon: '✦' },
+];
+---
+
+<BaseLayout
+  title="Now | Mahsa Ghasemi"
+  description="A dated snapshot of what Mahsa Ghasemi is actually working on: ShadoNet, SporeAI, and TopoTrack."
+>
+  <div class="now-page">
+    <header class="now-hero">
+      <div class="now-hero__meta">
+        <p class="now-hero__eyebrow">Now</p>
+        <time class="now-hero__date" datetime="2026-09-11">Updated {updated}</time>
+      </div>
+      <h1 class="now-hero__title">What has my attention right now.</h1>
+      <p class="now-hero__lead">
+        Three projects. One habit: privileged information may write the label.
+        It may not be the model, and it may not be the metric.
+      </p>
+      <div class="now-hero__actions">
+        <a class="research-btn research-btn--primary" href="/research">Research</a>
+        <a class="research-btn research-btn--secondary" href="/writing">Writing</a>
+      </div>
+    </header>
+
+    <section class="now-section" aria-labelledby="now-focus-heading">
+      <div class="now-section__header">
+        <h2 id="now-focus-heading" class="now-section__title">What I'm thinking about</h2>
+        <p class="now-section__subtitle">
+          Not three slogans. The same split, in pathology, microscopy, and spatial transcriptomics.
+        </p>
+      </div>
+      <NowPulse />
+      <div class="now-focus-grid">
+        {focusAreas.map((item) => (
+          <NowFocusCard icon={item.icon} title={item.title} description={item.description} />
+        ))}
+      </div>
+    </section>
+
+    <section class="now-section" id="in-motion" aria-labelledby="now-motion-heading">
+      <div class="now-section__header">
+        <h2 id="now-motion-heading" class="now-section__title">What's in motion</h2>
+        <p class="now-section__subtitle">
+          ShadoNet is out. SporeAI and TopoTrack are with the group;
+          both manuscripts should be ready soon.
+        </p>
+      </div>
+      <div class="now-motion-grid">
+        {inMotion.map((item) => (
+          <NowMotionCard
+            title={item.title}
+            description={item.description}
+            icon={item.icon}
+            href={item.href}
+            status={item.status}
+          />
+        ))}
+      </div>
+    </section>
+
+    <section class="now-section" aria-labelledby="now-questions-heading">
+      <div class="now-section__header">
+        <h2 id="now-questions-heading" class="now-section__title">Questions I'm carrying</h2>
+        <p class="now-section__subtitle">
+          Not agenda items. The disagreements I cannot average away.
+        </p>
+      </div>
+      <div class="now-questions-grid">
+        {questions.map((item) => (
+          <QuestionCard icon={item.icon} question={item.question} href={item.href} />
+        ))}
+      </div>
+    </section>
+
+    <section class="now-section" aria-labelledby="now-writing-heading">
+      <div class="now-section__header">
+        <h2 id="now-writing-heading" class="now-section__title">Writing I want to do next</h2>
+        <p class="now-section__subtitle">
+          Notes that would force a cut I have been avoiding in the project pages.
+        </p>
+      </div>
+      <div class="now-writing-grid">
+        {writingQueue.map((item) => (
+          <NowWritingCard title={item.title} icon={item.icon} />
+        ))}
+      </div>
+    </section>
+
+    <section class="now-section now-section--values" aria-labelledby="now-values-heading">
+      <h2 id="now-values-heading" class="visually-hidden">What I value</h2>
+      <blockquote class="now-values">
+        <p>
+          I will not score a model against geometry it will not have at test time.
+          I will not average away a dataset that refuses to move.
+          If two metric families disagree, that disagreement is the result.
+        </p>
+      </blockquote>
+      <p class="now-values__body">
+        Labels, data, and evaluation are part of the scientific problem — not just the
+        engineering pipeline. The next useful sentence, on any of the three projects, is
+        the one that names a shortcut and the plot that would show it if the method failed.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

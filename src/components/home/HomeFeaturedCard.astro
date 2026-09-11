@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, postHref } from '../../lib/blog';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="home-featured-card">
+  <time class="home-featured-card__date" datetime={post.data.date.toISOString()}>
+    {formatDate(post.data.date)}
+  </time>
+  <h3 class="home-featured-card__title">
+    <a href={postHref(post)}>{post.data.title}</a>
+  </h3>
+  {post.data.description && <p class="home-featured-card__desc">{post.data.description}</p>}
+  <a class="home-featured-card__link" href={postHref(post)}>
+    Read note <span aria-hidden="true">→</span>
+  </a>
+</article>

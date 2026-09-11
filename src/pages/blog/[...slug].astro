@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+import {
+  estimateReadingTime,
+  getPublishedPosts,
+  getRelatedPosts,
+  getSeriesNavigation,
+} from '../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.draft !== true);
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const allPosts = await getPublishedPosts();
+const { Content, headings } = await render(post);
+const { prev, next, series } = getSeriesNavigation(allPosts, post);
+const relatedPosts = getRelatedPosts(allPosts, post);
+const readingTime = post.data.readingTime ?? estimateReadingTime(post.body ?? '');
+---
+
+<PostLayout
+  frontmatter={post.data}
+  postId={post.id}
+  headings={headings}
+  prev={prev}
+  next={next}
+  series={series}
+  relatedPosts={relatedPosts}
+  readingTime={readingTime}
+>
+  <Content />
+</PostLayout>

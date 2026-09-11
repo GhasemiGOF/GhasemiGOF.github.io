@@ -1,0 +1,121 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import PostNav from '../components/PostNav.astro';
+import RelatedReading from '../components/RelatedReading.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { formatDate } from '../lib/blog';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  frontmatter: CollectionEntry<'blog'>['data'];
+  postId: string;
+  headings?: { depth: number; slug: string; text: string }[];
+  prev?: CollectionEntry<'blog'>;
+  next?: CollectionEntry<'blog'>;
+  series?: string;
+  relatedPosts?: CollectionEntry<'blog'>[];
+  readingTime?: number;
+}
+
+const {
+  frontmatter,
+  postId,
+  headings = [],
+  prev,
+  next,
+  series,
+  relatedPosts = [],
+  readingTime,
+} = Astro.props;
+
+const canonical = frontmatter.canonicalUrl ?? new URL(`/blog/${postId}`, Astro.site).href;
+const ogImage = frontmatter.ogImage ?? frontmatter.heroImage;
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+---
+
+<BaseLayout
+  title={`${frontmatter.title} | Mahsa Ghasemi`}
+  description={frontmatter.description}
+  keywords={frontmatter.keywords}
+  canonical={canonical}
+  ogImage={ogImageUrl}
+  ogType="article"
+>
+  <article class="post">
+    {
+      frontmatter.heroImage && (
+        <figure class="post-hero">
+          <img
+            src={frontmatter.heroImage}
+            alt=""
+            width="1200"
+            height="630"
+            loading="eager"
+          />
+        </figure>
+      )
+    }
+
+    <header class="post-header">
+      {frontmatter.category && <p class="post-category">{frontmatter.category}</p>}
+      {series && <p class="post-series">{series}</p>}
+      <h1 class="post-title">{frontmatter.title}</h1>
+      <div class="post-meta-row">
+        <time datetime={frontmatter.date.toISOString()}>{formatDate(frontmatter.date)}</time>
+        {
+          frontmatter.updatedDate && (
+            <span class="post-updated">Updated {formatDate(frontmatter.updatedDate)}</span>
+          )
+        }
+        {readingTime && <span class="post-reading-time">{readingTime} min read</span>}
+      </div>
+      {frontmatter.description && <p class="lead post-lead">{frontmatter.description}</p>}
+    </header>
+
+    {frontmatter.toc !== false && <TableOfContents headings={headings} />}
+
+    <div class="post-content">
+      <slot />
+    </div>
+
+    <PostNav prev={prev} next={next} series={series} />
+    <RelatedReading posts={relatedPosts} />
+  </article>
+</BaseLayout>
+
+<script>
+  import mermaid from 'mermaid';
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'neutral',
+    fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+    securityLevel: 'loose',
+    flowchart: { curve: 'basis', padding: 16 },
+  });
+
+  async function renderMermaidDiagrams() {
+    const blocks = document.querySelectorAll(
+      'pre[data-language="mermaid"] code, pre > code.language-mermaid',
+    );
+    for (const code of blocks) {
+      const pre = code.parentElement;
+      if (!pre || pre.dataset.processed) continue;
+      const chart = code.textContent?.trim() ?? '';
+      if (!chart) continue;
+      try {
+        const id = `mermaid-${Math.random().toString(36).slice(2, 9)}`;
+        const { svg } = await mermaid.render(id, chart);
+        const figure = document.createElement('figure');
+        figure.className = 'figure figure--mermaid';
+        figure.innerHTML = svg;
+        pre.replaceWith(figure);
+      } catch {
+        pre.dataset.processed = 'error';
+      }
+    }
+  }
+
+  renderMermaidDiagrams();
+  document.addEventListener('astro:page-load', renderMermaidDiagrams);
+</script>

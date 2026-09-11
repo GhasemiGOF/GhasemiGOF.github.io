@@ -1,0 +1,15 @@
+---
+interface Props {
+  term: string;
+}
+
+const { term } = Astro.props;
+---
+
+<div class="definition-card" role="note">
+  <p class="definition-label">Definition</p>
+  <p class="definition-term">{term}</p>
+  <div class="definition-body">
+    <slot />
+  </div>
+</div>

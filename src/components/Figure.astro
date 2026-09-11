@@ -1,0 +1,23 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  width?: number;
+  number?: number;
+}
+
+const { src, alt, caption, width, number } = Astro.props;
+---
+
+<figure class="figure">
+  <img src={src} alt={alt} loading="lazy" width={width} />
+  {
+    caption && (
+      <figcaption>
+        {number !== undefined && <span class="figure-number">Figure {number}. </span>}
+        {caption}
+      </figcaption>
+    )
+  }
+</figure>

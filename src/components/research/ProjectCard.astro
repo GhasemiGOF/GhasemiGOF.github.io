@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  icon: 'shadonet' | 'spore' | 'topo' | 'foundation';
+  tag?: string;
+}
+
+const { title, description, href, icon, tag } = Astro.props;
+
+const icons: Record<Props['icon'], string> = {
+  shadonet: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="8" r="2"/><circle cx="19" cy="8" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M7 15l3-2M17 15l-3-2M7 10l5 2M17 10l-5 2"/></svg>`,
+  spore: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="14" rx="6" ry="4"/><path d="M8 10c0-2.2 1.8-4 4-4s4 1.8 4 4"/><path d="M12 6V4M9 7l-1-2M15 7l1-2"/></svg>`,
+  topo: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18l4-8 4 5 4-10 4 7"/><circle cx="8" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="16" cy="5" r="1.5" fill="currentColor" stroke="none"/></svg>`,
+  foundation: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 4v6c0 4-3 7-7 8-4-1-7-4-7-8V7l7-4z"/><path d="M9 12h6M12 9v6"/></svg>`,
+};
+---
+
+<a class="research-project-card" href={href}>
+  <div class="research-project-card__icon" set:html={icons[icon]} />
+  <div class="research-project-card__body">
+    {tag && <span class="research-project-card__tag">{tag}</span>}
+    <h3 class="research-project-card__title">{title}</h3>
+    <p class="research-project-card__desc">{description}</p>
+    <span class="research-project-card__link">
+      Read more
+      <span class="research-project-card__arrow" aria-hidden="true">→</span>
+    </span>
+  </div>
+</a>

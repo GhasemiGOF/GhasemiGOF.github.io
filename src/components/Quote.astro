@@ -1,0 +1,27 @@
+---
+interface Props {
+  source?: string;
+  href?: string;
+}
+
+const { source, href } = Astro.props;
+---
+
+<blockquote class="pull-quote">
+  <slot />
+  {
+    source && (
+      <footer>
+        {href ? (
+          <cite>
+            <a href={href} target="_blank" rel="noopener noreferrer">
+              {source}
+            </a>
+          </cite>
+        ) : (
+          <cite>{source}</cite>
+        )}
+      </footer>
+    )
+  }
+</blockquote>

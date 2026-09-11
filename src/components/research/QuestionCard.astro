@@ -1,0 +1,21 @@
+---
+interface Props {
+  question: string;
+  icon: string;
+  href?: string;
+}
+
+const { question, icon, href } = Astro.props;
+---
+
+{href ? (
+  <a class="research-question-card" href={href}>
+    <span class="research-question-card__icon" aria-hidden="true">{icon}</span>
+    <p class="research-question-card__text">{question}</p>
+  </a>
+) : (
+  <article class="research-question-card research-question-card--static">
+    <span class="research-question-card__icon" aria-hidden="true">{icon}</span>
+    <p class="research-question-card__text">{question}</p>
+  </article>
+)}

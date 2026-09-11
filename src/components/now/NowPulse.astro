@@ -1,0 +1,43 @@
+---
+const areas = [
+  { label: 'Morphology', x: 130, y: 70, r: 36 },
+  { label: 'Supervision', x: 260, y: 70, r: 36 },
+  { label: 'Evaluation', x: 390, y: 70, r: 36 },
+];
+---
+
+<figure class="now-pulse">
+  <svg viewBox="0 0 520 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="now-pulse-title now-pulse-desc">
+    <title id="now-pulse-title">Current research focus areas</title>
+    <desc id="now-pulse-desc">Three connected focus areas: morphology, supervision design, and evaluation</desc>
+
+    <defs>
+      <linearGradient id="now-pulse-line" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#8b9cb5" />
+        <stop offset="50%" stop-color="#5b7c99" />
+        <stop offset="100%" stop-color="#3d5a80" />
+      </linearGradient>
+      <radialGradient id="now-pulse-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#eef3f7" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#eef3f7" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+
+    <ellipse cx="260" cy="70" rx="210" ry="55" fill="url(#now-pulse-glow)" />
+    <path d="M166 70 H354" stroke="url(#now-pulse-line)" stroke-width="2" stroke-dasharray="6 5" opacity="0.7" />
+
+    {areas.map((area) => (
+      <>
+        <circle cx={area.x} cy={area.y} r={area.r} fill="#fcfcfb" stroke="#5b7c99" stroke-width="1.5" opacity="0.95" />
+        <circle cx={area.x} cy={area.y} r="8" fill="#5b7c99" opacity="0.2" />
+        <text x={area.x} y={area.y + 4} text-anchor="middle" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="11" fill="#3d5a80" font-weight="500">
+          {area.label}
+        </text>
+      </>
+    ))}
+
+    <text x="260" y="138" text-anchor="middle" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="10" fill="#6b6b6b">
+      Making biological structure legible when supervision is incomplete
+    </text>
+  </svg>
+</figure>

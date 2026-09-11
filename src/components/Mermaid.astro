@@ -1,0 +1,45 @@
+---
+interface Props {
+  chart: string;
+  caption?: string;
+}
+
+const { chart, caption } = Astro.props;
+const id = `mermaid-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<figure class="figure figure--mermaid">
+  <pre class="mermaid" id={id} data-chart={chart}>{chart}</pre>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<script>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'neutral',
+    fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+    flowchart: { curve: 'basis', padding: 16 },
+  });
+
+  async function renderMermaid() {
+    const nodes = document.querySelectorAll('pre.mermaid:not([data-processed])');
+    for (const node of nodes) {
+      const chart = node.textContent?.trim() ?? '';
+      if (!chart) continue;
+      try {
+        const { svg } = await mermaid.render(`m-${node.id}`, chart);
+        const wrapper = document.createElement('div');
+        wrapper.className = 'mermaid-rendered';
+        wrapper.innerHTML = svg;
+        node.replaceWith(wrapper);
+      } catch {
+        node.setAttribute('data-processed', 'error');
+      }
+    }
+  }
+
+  renderMermaid();
+  document.addEventListener('astro:page-load', renderMermaid);
+</script>

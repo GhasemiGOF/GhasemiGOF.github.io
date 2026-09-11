@@ -1,0 +1,32 @@
+---
+interface Props {
+  authors: string;
+  title: string;
+  venue?: string;
+  year?: number | string;
+  doi?: string;
+  arxiv?: string;
+  url?: string;
+}
+
+const { authors, title, venue, year, doi, arxiv, url } = Astro.props;
+
+const link = doi
+  ? `https://doi.org/${doi}`
+  : arxiv
+    ? `https://arxiv.org/abs/${arxiv}`
+    : url;
+---
+
+<p class="citation" role="doc-biblioref">
+  {authors}. <em>{title}</em>
+  {venue && <span>. {venue}</span>}
+  {year && <span> ({year})</span>}.
+  {
+    link && (
+      <a href={link} target="_blank" rel="noopener noreferrer">
+        {doi ? `doi:${doi}` : arxiv ? `arXiv:${arxiv}` : 'link'}
+      </a>
+    )
+  }
+</p>

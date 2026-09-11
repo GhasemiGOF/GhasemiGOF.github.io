@@ -1,0 +1,7 @@
+---
+const { class: className } = Astro.props;
+---
+
+<span class:list={['margin-note', className]} role="note">
+  <slot />
+</span>

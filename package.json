@@ -1,0 +1,16 @@
+{
+  "name": "mahsa-astro-starter",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^7.0.2",
+    "astro": "latest",
+    "mermaid": "^11.16.0",
+    "remark-gfm": "^4.0.1"
+  }
+}

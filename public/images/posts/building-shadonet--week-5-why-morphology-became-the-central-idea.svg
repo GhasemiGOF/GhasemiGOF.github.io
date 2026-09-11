@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Week 5: Why Morphology Became the Central Idea">
+  <rect width="1200" height="630" fill="#f3f6f4"/>
+  <circle cx="980" cy="120" r="60" fill="#c5d9cc" opacity="0.6"/>
+  <rect x="880" y="380" width="180" height="180" rx="4" fill="#c5d9cc" opacity="0.4"/>
+  <line x1="120" y1="420" x2="480" y2="420" stroke="#c5d9cc" stroke-width="2"/>
+  <line x1="120" y1="460" x2="380" y2="460" stroke="#c5d9cc" stroke-width="1.5" opacity="0.7"/>
+  <line x1="120" y1="500" x2="300" y2="500" stroke="#c5d9cc" stroke-width="1.5" opacity="0.5"/>
+  <text x="120" y="282" font-family="Georgia, serif" font-size="28" fill="#6b8f7a">Week 5: Why Morphology</text>
+    <text x="120" y="318" font-family="Georgia, serif" font-size="28" fill="#6b8f7a">Became the Central Idea</text>
+</svg>

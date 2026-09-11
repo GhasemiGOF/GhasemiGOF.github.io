@@ -1,0 +1,15 @@
+---
+interface Props {
+  label: string;
+  description: string;
+  href: string;
+}
+
+const { label, description, href } = Astro.props;
+---
+
+<a class="home-explore-card" href={href}>
+  <span class="home-explore-card__label">{label}</span>
+  <span class="home-explore-card__desc">{description}</span>
+  <span class="home-explore-card__arrow" aria-hidden="true">→</span>
+</a>

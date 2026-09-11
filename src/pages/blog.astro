@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatDate, getPublishedPosts, groupPostsByCategory, postHref, estimateReadingTime } from '../lib/blog';
+
+const posts = await getPublishedPosts();
+const groupedPosts = groupPostsByCategory(posts);
+---
+
+<BaseLayout title="Archive | Mahsa Ghasemi">
+  <h1 class="page-heading">Archive</h1>
+  <p class="lead">
+    A chronological map of the notebook. For a guided overview, start with the{' '}
+    <a href="/writing">Writing</a> page.
+  </p>
+
+  {
+    groupedPosts.map(([category, categoryPosts]) => {
+      const anchor = categoryPosts[0]?.id.split('/')[0] ?? category;
+
+      return (
+        <section class="home-section archive-section" id={anchor}>
+          <h2 class="home-section-heading">{category}</h2>
+          <ul class="post-list">
+            {categoryPosts.map((post) => {
+              const readingTime = post.data.readingTime ?? estimateReadingTime(post.body ?? '');
+              return (
+                <li>
+                  <span class="post-meta">
+                    {formatDate(post.data.date)}
+                    {readingTime > 0 && ` · ${readingTime} min`}
+                    {post.data.updatedDate && ` · updated ${formatDate(post.data.updatedDate)}`}
+                  </span>
+                  <h3>
+                    <a class="post-link" href={postHref(post)}>{post.data.title}</a>
+                  </h3>
+                  {post.data.description && <p class="post-excerpt">{post.data.description}</p>}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      );
+    })
+  }
+</BaseLayout>

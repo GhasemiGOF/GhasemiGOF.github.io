@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { postHref } from '../lib/blog';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="related-reading" aria-labelledby="related-reading-heading">
+      <h2 id="related-reading-heading">Related reading</h2>
+      <ul>
+        {posts.map((post) => (
+          <li>
+            <a href={postHref(post)}>{post.data.title}</a>
+            {post.data.description && <span class="related-desc"> — {post.data.description}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

@@ -1,0 +1,30 @@
+---
+interface Props {
+  type?: 'key-idea' | 'observation' | 'research-question' | 'misconception' | 'takeaway' | 'experiment' | 'failure' | 'lesson' | 'paper-insight' | 'update';
+  title?: string;
+}
+
+const { type = 'key-idea', title } = Astro.props;
+
+const labels: Record<string, string> = {
+  'key-idea': 'Key idea',
+  observation: 'Observation',
+  'research-question': 'Research question',
+  misconception: 'Common misconception',
+  takeaway: 'Takeaway',
+  experiment: 'Experiment note',
+  failure: 'Failure story',
+  lesson: 'Lesson learned',
+  'paper-insight': 'Paper insight',
+  update: 'Update',
+};
+
+const label = title ?? labels[type] ?? 'Note';
+---
+
+<aside class={`callout callout--${type}`} role="note">
+  <p class="callout-label">{label}</p>
+  <div class="callout-body">
+    <slot />
+  </div>
+</aside>

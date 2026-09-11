@@ -1,0 +1,99 @@
+---
+import '../styles/global.css';
+import FooterLinks from '../components/FooterLinks.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+}
+
+const {
+  title = 'Mahsa Ghasemi',
+  description = 'Research notes on computational pathology, morphology, weak supervision, and representation learning.',
+  keywords = [],
+  canonical,
+  ogImage,
+  ogType = 'website',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    <title>{title}</title>
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrapper">
+        <a class="site-title" rel="author" href="/">Mahsa Ghasemi</a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <input type="checkbox" id="nav-trigger" />
+          <label for="nav-trigger">
+            <span class="menu-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Menu</span>
+          </label>
+          <div class="nav-items">
+            <a class="nav-item" href="/research">Research</a>
+            <a class="nav-item" href="/projects">Projects</a>
+            <a class="nav-item" href="/writing">Writing</a>
+            <a class="nav-item" href="/now">Now</a>
+            <a class="nav-item" href="/about">About</a>
+            <a class="nav-item" href="/cv.pdf">CV</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrapper">
+        <FooterLinks />
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

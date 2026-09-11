@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { postHref } from '../lib/blog';
+
+interface Props {
+  prev?: CollectionEntry<'blog'>;
+  next?: CollectionEntry<'blog'>;
+  series?: string;
+}
+
+const { prev, next, series } = Astro.props;
+---
+
+{
+  (prev || next) && (
+    <nav class="post-nav" aria-label={series ? `Navigation in ${series}` : 'Post navigation'}>
+      {series && <p class="post-nav-series">{series}</p>}
+      <div class="post-nav-links">
+        {prev ? (
+          <a class="post-nav-prev" href={postHref(prev)}>
+            <span class="post-nav-label">Previous</span>
+            <span class="post-nav-title">{prev.data.title}</span>
+          </a>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <a class="post-nav-next" href={postHref(next)}>
+            <span class="post-nav-label">Next</span>
+            <span class="post-nav-title">{next.data.title}</span>
+          </a>
+        ) : (
+          <span />
+        )}
+      </div>
+    </nav>
+  )
+}

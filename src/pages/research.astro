@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/research/ProjectCard.astro';
+import QuestionCard from '../components/research/QuestionCard.astro';
+import ResearchRoadmap from '../components/research/ResearchRoadmap.astro';
+import ResearchEcosystem from '../components/research/ResearchEcosystem.astro';
+
+const themes = [
+  'Two-part methods',
+  'Morphology and tissue structure',
+  'Evaluation that matches the claim',
+];
+
+const questions = [
+  {
+    icon: '🧩',
+    question: 'Can a click, plus an optional shape, teach morphology — or only stain and GFP?',
+    href: '/blog/research-questions/can-morphology-replace-large-annotated-datasets',
+  },
+  {
+    icon: '🧬',
+    question: 'Which nucleus and cell-shape properties survive cheap labels, and which need a boundary a person actually drew?',
+    href: '/blog/research-notes/morphology-before-accuracy',
+  },
+  {
+    icon: '🔬',
+    question: 'What should a pathology foundation model learn about tissue structure, not just tiles that score well?',
+    href: '/blog/research-questions/what-should-pathology-foundation-models-actually-learn',
+  },
+  {
+    icon: '📊',
+    question: 'If two metric families disagree — F1 vs class, kNN vs type mass — is that a failure, or the result?',
+    href: '/blog/research-questions/can-we-measure-biological-understanding',
+  },
+];
+
+const projects = [
+  {
+    title: 'ShadoNet',
+    description:
+      'Single-stage Ki-67 cell detection and classification from human centers. SAM may donate a shape while writing labels; it is gone at inference. Accepted at Oxford Bioinformatics, 2026. Headline F1 0.89 / 0.81 on NETnewClass.',
+    href: '/projects/shadonet',
+    icon: 'shadonet' as const,
+    tag: 'Computational pathology',
+  },
+  {
+    title: 'SporeAI',
+    description:
+      'Phase-only 7-class nnU-Net for Bacillus sporulation. GFP, Omnipose, and clicks write the label. The model and the interface — SporeVision — see only phase. Click-level end-to-end 0.855; mature is the weakest class.',
+    href: '/projects/sporeai',
+    icon: 'spore' as const,
+    tag: 'Microbiology',
+  },
+  {
+    title: 'TopoTrack',
+    description:
+      'Fused Gromov–Wasserstein between spatial-transcriptomics slices. Expression sets the cross-slice cost; multi-view structure sets G. Held-out: 7/7 spatial and kNN wins vs SpaTrack, and type mass falls. That tradeoff stays.',
+    href: '/projects/topotrack',
+    icon: 'topo' as const,
+    tag: 'Spatial biology',
+  },
+  {
+    title: 'Morphology-aware Foundation Models',
+    description:
+      'What would it mean for a pathology model to understand morphology on H&E and Ki-67, especially neuroendocrine neoplasms, without treating pretraining as the scientific claim?',
+    href: '/blog/research-notes/foundation-models-are-powerful-but-not-magic',
+    icon: 'foundation' as const,
+    tag: 'Open direction',
+  },
+];
+---
+
+<BaseLayout
+  title="Research | Mahsa Ghasemi"
+  description="Ph.D. candidate at Indiana University. Two-part methods for cheap labels in computational pathology, bacterial microscopy, and spatial transcriptomics."
+>
+  <div class="research-page">
+    <header class="research-hero">
+      <p class="research-hero__eyebrow">Research</p>
+      <h1 class="research-hero__title">
+        Cheap labels. Privileged channels stay in part 1.
+      </h1>
+      <p class="research-hero__vision">
+        I am a Ph.D. candidate in Computer Science at Indiana University. The habit across
+        pathology, microscopy, and spatial transcriptomics is the same: extra information
+        may write a training target. It is not an input at test time, and it is not the
+        metric I report as the claim.
+      </p>
+      <p class="research-hero__paper">
+        <em>ShadoNet: A Cell Detection and Classification Framework for Ki-67 Pathology Images</em>
+        — accepted, Oxford <em>Bioinformatics</em>, 2026.
+      </p>
+      <ul class="research-hero__themes" aria-label="Research themes">
+        {themes.map((theme) => (
+          <li>{theme}</li>
+        ))}
+      </ul>
+      <div class="research-hero__actions">
+        <a class="research-btn research-btn--primary" href="#projects">Current Projects</a>
+        <a class="research-btn research-btn--secondary" href="/cv.pdf">CV</a>
+      </div>
+    </header>
+
+    <section class="research-section" aria-labelledby="research-roadmap-heading">
+      <div class="research-section__header">
+        <h2 id="research-roadmap-heading" class="research-section__title">Research Roadmap</h2>
+        <p class="research-section__subtitle">
+          Not a product ladder. The order I actually use: write the label, keep the
+          structure, score the claim, then ask what transfers.
+        </p>
+      </div>
+      <ResearchRoadmap />
+    </section>
+
+    <section class="research-section" aria-labelledby="research-questions-heading">
+      <div class="research-section__header">
+        <h2 id="research-questions-heading" class="research-section__title">Research Questions</h2>
+        <p class="research-section__subtitle">
+          The disagreements I cannot average away. Each one has a notebook page or a note.
+        </p>
+      </div>
+      <div class="research-questions-grid">
+        {questions.map((item) => (
+          <QuestionCard icon={item.icon} question={item.question} href={item.href} />
+        ))}
+      </div>
+    </section>
+
+    <section class="research-section" id="projects" aria-labelledby="current-projects-heading">
+      <div class="research-section__header">
+        <h2 id="current-projects-heading" class="research-section__title">Current Projects</h2>
+        <p class="research-section__subtitle">
+          Three working notebooks and one open direction. Click the box.
+        </p>
+      </div>
+      <div class="research-projects-grid">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.title}
+            description={project.description}
+            href={project.href}
+            icon={project.icon}
+            tag={project.tag}
+          />
+        ))}
+      </div>
+    </section>
+
+    <section class="research-section" aria-labelledby="research-ecosystem-heading">
+      <div class="research-section__header">
+        <h2 id="research-ecosystem-heading" class="research-section__title">Research Ecosystem</h2>
+        <p class="research-section__subtitle">
+          Pathology, microscopy, and spatial slices. Same split: what writes the label is
+          not what the model is allowed to see.
+        </p>
+      </div>
+      <ResearchEcosystem />
+    </section>
+
+    <section class="research-section research-section--philosophy" aria-labelledby="philosophy-heading">
+      <h2 id="philosophy-heading" class="visually-hidden">Research Philosophy</h2>
+      <blockquote class="research-philosophy">
+        <p>
+          The easiest extra signal is usually the wrong definition of the task.
+        </p>
+      </blockquote>
+      <p class="research-philosophy__body">
+        Dye looks like a diagnosis. GFP looks like a stage. A smooth coupling looks like a
+        trajectory. None of those is the biology I named. I keep the dataset that refuses to
+        move, and I keep the metric family that loses when the other one wins.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatDate, getPublishedPosts, postHref } from '../lib/blog';
+
+const posts = await getPublishedPosts();
+
+const shelves = [
+  {
+    id: 'notes',
+    title: 'Research notes',
+    purpose: 'The argument, written down. Not a result. A claim I am willing to keep.',
+    slug: 'research-notes',
+  },
+  {
+    id: 'questions',
+    title: 'Research questions',
+    purpose: 'Open problems, stated precisely enough that they can fail.',
+    slug: 'research-questions',
+  },
+  {
+    id: 'explainers',
+    title: 'Small explainers',
+    purpose: 'Short pieces for words I keep using: weak supervision, F1, centers, masks.',
+    slug: 'small-explainers',
+  },
+  {
+    id: 'papers',
+    title: 'Paper notes',
+    purpose: 'Not summaries. One idea from the paper that changed how I think.',
+    slug: 'paper-notes',
+  },
+  {
+    id: 'journal',
+    title: 'PhD journal',
+    purpose: 'How the work feels from the inside. Failed ideas, writing, uncertainty.',
+    slug: 'phd-journal',
+  },
+];
+
+const templates = [
+  {
+    id: 'conferences',
+    title: 'Conference notes',
+    slug: 'conference-notes',
+    purpose: 'Blank pages for MICCAI, MIDL, CVPR, NeurIPS. Not trip reports yet.',
+  },
+  {
+    id: 'logs',
+    title: 'Monthly logs',
+    slug: 'monthly-research-logs',
+    purpose: 'Month-by-month templates. The dated snapshot lives on /now.',
+  },
+];
+
+function inFolder(slug: string) {
+  return posts.filter((post) => post.id.startsWith(`${slug}/`));
+}
+
+function postDate(post: (typeof posts)[number]) {
+  const value = post.data.date;
+  return value instanceof Date ? value : new Date(value);
+}
+
+const filledShelves = shelves
+  .map((shelf) => ({ ...shelf, items: inFolder(shelf.slug) }))
+  .filter((shelf) => shelf.items.length > 0);
+
+const filledTemplates = templates
+  .map((shelf) => ({ ...shelf, items: inFolder(shelf.slug) }))
+  .filter((shelf) => shelf.items.length > 0);
+---
+
+<BaseLayout
+  title="Writing | Mahsa Ghasemi"
+  description="A map of the notebook: research notes, open questions, paper notes, and a PhD journal."
+>
+  <div class="writing-page">
+    <header class="writing-hero">
+      <p class="writing-hero__eyebrow">Writing</p>
+      <h1 class="writing-hero__title">A map of the notebook.</h1>
+      <p class="writing-hero__lead">
+        Notes, questions, and paper readings. Project pages live under Projects.
+        What I am doing this month lives on Now.
+      </p>
+      <nav class="writing-jump" aria-label="Kinds of writing">
+        {filledShelves.map((shelf) => (
+          <a href={`#${shelf.id}`}>
+            {shelf.title}
+            <span>{shelf.items.length}</span>
+          </a>
+        ))}
+        {filledTemplates.length > 0 && (
+          <a href="#templates">
+            Templates
+            <span>{filledTemplates.reduce((n, shelf) => n + shelf.items.length, 0)}</span>
+          </a>
+        )}
+      </nav>
+    </header>
+
+    {filledShelves.map((shelf) => (
+      <section class="writing-shelf" id={shelf.id} aria-labelledby={`${shelf.id}-heading`}>
+        <header class="writing-shelf__head">
+          <div>
+            <h2 class="writing-shelf__title" id={`${shelf.id}-heading`}>
+              {shelf.title}
+            </h2>
+            <p class="writing-shelf__purpose">{shelf.purpose}</p>
+          </div>
+          <p class="writing-shelf__count">{shelf.items.length}</p>
+        </header>
+        <ol class="writing-shelf__list">
+          {shelf.items.map((post) => {
+            const date = postDate(post);
+            return (
+              <li>
+                <a href={postHref(post)}>{post.data.title}</a>
+                <time datetime={date.toISOString()}>{formatDate(date)}</time>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+    ))}
+
+    {filledTemplates.length > 0 && (
+      <section class="writing-shelf writing-shelf--quiet" id="templates" aria-labelledby="templates-heading">
+        <header class="writing-shelf__head">
+          <div>
+            <h2 class="writing-shelf__title" id="templates-heading">Templates</h2>
+            <p class="writing-shelf__purpose">
+              Empty forms, not finished writing. Listed so they do not sit next to the notes.
+            </p>
+          </div>
+        </header>
+        <div class="writing-templates">
+          {filledTemplates.map((shelf) => (
+            <p>
+              <strong>{shelf.title}.</strong> {shelf.purpose}{' '}
+              <a href={`/blog#${shelf.slug}`}>{shelf.items.length} in the archive</a>
+            </p>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <p class="writing-archive">
+      The <a href="/blog">archive</a> is the same notes, with reading time.
+    </p>
+  </div>
+</BaseLayout>

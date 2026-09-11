@@ -1,0 +1,14 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="equation-block" role="math">
+  {label && <span class="equation-label">{label}</span>}
+  <div class="equation-content">
+    <slot />
+  </div>
+</div>

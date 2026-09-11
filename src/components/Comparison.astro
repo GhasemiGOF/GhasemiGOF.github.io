@@ -1,0 +1,23 @@
+---
+interface Props {
+  leftTitle: string;
+  rightTitle: string;
+}
+
+const { leftTitle, rightTitle } = Astro.props;
+---
+
+<div class="comparison">
+  <div class="comparison-col">
+    <p class="comparison-title">{leftTitle}</p>
+    <div class="comparison-body">
+      <slot name="left" />
+    </div>
+  </div>
+  <div class="comparison-col">
+    <p class="comparison-title">{rightTitle}</p>
+    <div class="comparison-body">
+      <slot name="right" />
+    </div>
+  </div>
+</div>

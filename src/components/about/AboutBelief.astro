@@ -1,0 +1,17 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  text: string;
+}
+
+const { number, title, text } = Astro.props;
+---
+
+<article class="about-belief">
+  <span class="about-belief__number" aria-hidden="true">{number}</span>
+  <div class="about-belief__body">
+    <h3 class="about-belief__title">{title}</h3>
+    <p class="about-belief__text">{text}</p>
+  </div>
+</article>

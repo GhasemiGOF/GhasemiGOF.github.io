@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AboutPillar from '../components/about/AboutPillar.astro';
+import AboutLensCard from '../components/about/AboutLensCard.astro';
+import AboutThread from '../components/about/AboutThread.astro';
+import { siteConfig } from '../site.config';
+
+const pillars = [
+  {
+    icon: '①',
+    title: 'Two parts, on purpose',
+    description:
+      'First I build the training target. Then I train a model that is not allowed to see how that target was built. Extra signals — a fluorescent marker, an automatic outline, a click from an expert — may help me label. They do not get to be an input when the model is used.',
+  },
+  {
+    icon: '②',
+    title: 'How I score is part of the claim',
+    description:
+      'I ask whether we found the cell and whether we named it right. I do not give credit for matching an outline no person drew. Shape and identity can move in opposite directions. A pretty picture is not a result.',
+  },
+  {
+    icon: '③',
+    title: 'Keep the result that refuses to move',
+    description:
+      'If the method helps on one collection of images and barely moves on another, that stays in the paper. Averaging them away is how a shortcut becomes a story.',
+  },
+];
+
+const paperLens = {
+  label: 'What a paper is allowed to hide',
+  items: [
+    'The extra signal that wrote the labels',
+    'The dataset that did not improve',
+    'A score that uses information the model will not have later',
+    'One number that hides a tradeoff',
+  ],
+};
+
+const notebookLens = {
+  label: 'What this site is for',
+  items: [
+    'The shortcut I named before I trained',
+    'The rule I refuse to drop',
+    'Working numbers with the caveat still attached',
+    'The plot that would prove me wrong',
+  ],
+};
+
+const interests = [
+  'Learning from sparse labels',
+  'Cell shape, not just dye',
+  'Pathology images',
+  'Bacterial microscopy',
+  'Uncertain developmental stages',
+  'Matching cells across tissue',
+  'How cells sit next to each other',
+  'Honest evaluation',
+  'Naming failure in advance',
+];
+
+const contactLinks = [
+  siteConfig.email && { label: 'Email', href: `mailto:${siteConfig.email}`, value: siteConfig.email },
+  siteConfig.scholar && { label: 'Google Scholar', href: siteConfig.scholar, value: 'Publications & citations' },
+  siteConfig.github && { label: 'GitHub', href: siteConfig.github, value: 'Code & projects' },
+  siteConfig.linkedin && { label: 'LinkedIn', href: siteConfig.linkedin, value: 'Professional profile' },
+  siteConfig.orcid && { label: 'ORCID', href: siteConfig.orcid, value: 'Researcher ID' },
+].filter(Boolean);
+---
+
+<BaseLayout
+  title="About | Mahsa Ghasemi"
+  description="Mahsa Ghasemi builds machine-learning methods that learn from cheap, incomplete labels — without letting the easiest extra signal quietly become the task."
+>
+  <div class="about-page">
+    <header class="about-hero">
+      <div class="about-hero__content">
+        <p class="about-hero__eyebrow">About</p>
+        <h1 class="about-hero__name">Mahsa Ghasemi</h1>
+        <p class="about-hero__role">Ph.D. candidate in Computer Science · Indiana University</p>
+        <p class="about-hero__tagline">
+          I work on what a label is allowed to claim.
+        </p>
+        <p class="about-hero__bio">
+          I build machine-learning methods for biological images when the
+          labels are cheap, incomplete, or easier than the thing I actually
+          care about. The habit is the same across three projects. Extra
+          information may help me write the training target. The model that
+          has to work later does not get that extra information, and I do
+          not score it as if it did.
+        </p>
+        <div class="about-hero__actions">
+          <a class="research-btn research-btn--primary" href="/research">Research</a>
+          <a class="research-btn research-btn--secondary" href="/now">Now</a>
+          <a class="research-btn research-btn--secondary" href="/cv.pdf">CV</a>
+        </div>
+      </div>
+      <div class="about-hero__visual">
+        <AboutThread />
+      </div>
+    </header>
+
+    <section class="about-section" aria-labelledby="about-observation-heading">
+      <div class="about-observation">
+        <p class="about-observation__label">The observation that motivates my work</p>
+        <blockquote class="about-observation__quote">
+          <p>
+            The easiest extra signal is usually the wrong definition of the
+            task. Dye on a slide looks like a diagnosis. A fluorescent marker
+            looks like a developmental stage. A smooth matching between two
+            tissue slices looks like a trajectory. None of those is the
+            biology I named.
+          </p>
+        </blockquote>
+        <p class="about-observation__body">
+          In <a href="/projects/shadonet">ShadoNet</a> I find and classify
+          nuclei on pathology slides from a pathologist’s clicks — and try
+          not to let the stain do the work that shape should do. In
+          <a href="/projects/sporeai">SporeAI</a> I follow bacteria as they
+          form spores; a fluorescent marker can help me label the stages,
+          but the trained model only sees the ordinary microscope image. In
+          <a href="/projects/topotrack">TopoTrack</a> I match cells between
+          two slices of tissue; keeping neighbors together is useful, but
+          not if the method has to blur cell identity to do it. What I am
+          doing this month lives on <a href="/now">/now</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="about-section" aria-labelledby="about-pillars-heading">
+      <div class="about-section__header">
+        <h2 id="about-pillars-heading" class="about-section__title">How I think about research</h2>
+        <p class="about-section__subtitle">
+          Not values. The rules I already use when a number looks good.
+        </p>
+      </div>
+      <div class="about-pillars-grid">
+        {pillars.map((pillar) => (
+          <AboutPillar icon={pillar.icon} title={pillar.title} description={pillar.description} />
+        ))}
+      </div>
+    </section>
+
+    <section class="about-section" aria-labelledby="about-lens-heading">
+      <div class="about-section__header">
+        <h2 id="about-lens-heading" class="about-section__title">This site is not a CV</h2>
+        <p class="about-section__subtitle">
+          Papers clean a path. I want the path that was actually walked,
+          including the tradeoff I refused to hide.
+        </p>
+      </div>
+      <div class="about-lens-grid">
+        <AboutLensCard label={paperLens.label} items={paperLens.items} tone="paper" />
+        <AboutLensCard label={notebookLens.label} items={notebookLens.items} tone="notebook" />
+      </div>
+      <p class="about-lens-note">
+        Careful enough to be useful. Unfinished enough that a reader can still
+        see where I am unsure. If you cannot name what would prove a page
+        wrong, I have not finished writing it.
+      </p>
+    </section>
+
+    <section class="about-section" aria-labelledby="about-interests-heading">
+      <div class="about-section__header">
+        <h2 id="about-interests-heading" class="about-section__title">What the work is actually about</h2>
+        <p class="about-section__subtitle">
+          Topics I return to because the data forced them, not because they
+          look like a keyword list.
+        </p>
+      </div>
+      <ul class="about-interests" aria-label="Research interests">
+        {interests.map((interest, index) => (
+          <li class:list={['about-interest', index % 3 === 1 && 'about-interest--accent']}>
+            {interest}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {
+      contactLinks.length > 0 && (
+        <section class="about-section about-section--contact" aria-labelledby="about-contact-heading">
+          <div class="about-section__header">
+            <h2 id="about-contact-heading" class="about-section__title">Get in touch</h2>
+            <p class="about-section__subtitle">
+              If a figure is wrong, a claim is too large, or you are working
+              on the same kind of problem, I want to hear it.
+            </p>
+          </div>
+          <div class="about-contact-grid">
+            {contactLinks.map((link) => (
+              <a class="about-contact-card" href={link!.href} target={link!.href.startsWith('mailto:') ? undefined : '_blank'} rel={link!.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}>
+                <span class="about-contact-card__label">{link!.label}</span>
+                <span class="about-contact-card__value">{link!.value}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>

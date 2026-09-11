@@ -1,0 +1,63 @@
+---
+const nodes = [
+  { label: 'ShadoNet', x: 90, y: 52, href: '/projects/shadonet' },
+  { label: 'SporeAI', x: 90, y: 148, href: '/projects/sporeai' },
+  { label: 'TopoTrack', x: 430, y: 100, href: '/projects/topotrack' },
+  { label: 'Foundation Models', x: 260, y: 200, href: '/blog/research-notes/foundation-models-are-powerful-but-not-magic' },
+];
+
+const themes = [
+  { label: 'Morphology-aware AI', x: 260, y: 36, color: '#5b7c99' },
+  { label: 'Limited supervision', x: 90, y: 230, color: '#8b9cb5' },
+  { label: 'Biological representations', x: 430, y: 230, color: '#6b8f9e' },
+];
+---
+
+<figure class="research-ecosystem">
+  <svg viewBox="0 0 520 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ecosystem-title ecosystem-desc">
+    <title id="ecosystem-title">Connected research ecosystem</title>
+    <desc id="ecosystem-desc">Projects connect through three themes toward a shared vision of biologically meaningful AI</desc>
+
+    <defs>
+      <radialGradient id="ecosystem-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#eef3f7" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#eef3f7" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient id="vision-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#5b7c99" />
+        <stop offset="100%" stop-color="#3d5a80" />
+      </linearGradient>
+    </defs>
+
+    <ellipse cx="260" cy="120" rx="200" ry="95" fill="url(#ecosystem-glow)" />
+
+    <line x1="260" y1="120" x2="90" y2="52" stroke="#c5d6e4" stroke-width="1.5" />
+    <line x1="260" y1="120" x2="90" y2="148" stroke="#c5d6e4" stroke-width="1.5" />
+    <line x1="260" y1="120" x2="430" y2="100" stroke="#c5d6e4" stroke-width="1.5" />
+    <line x1="260" y1="120" x2="260" y2="200" stroke="#c5d6e4" stroke-width="1.5" stroke-dasharray="5 4" />
+
+    <circle cx="260" cy="120" r="42" fill="url(#vision-gradient)" opacity="0.12" />
+    <circle cx="260" cy="120" r="28" fill="#fcfcfb" stroke="#5b7c99" stroke-width="2" />
+    <text x="260" y="116" text-anchor="middle" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="9" fill="#3d5a80" font-weight="500">Research</text>
+    <text x="260" y="128" text-anchor="middle" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="9" fill="#3d5a80" font-weight="500">Vision</text>
+
+    {nodes.map((node) => (
+      <a href={node.href}>
+        <rect x={node.x - 52} y={node.y - 16} width="104" height="32" rx="16" fill="#fcfcfb" stroke="#e8e6e3" stroke-width="1.5" />
+        <text x={node.x} y={node.y + 4} text-anchor="middle" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="10" fill="#1c1c1c">
+          {node.label}
+        </text>
+      </a>
+    ))}
+
+    {themes.map((theme) => (
+      <>
+        <rect x={theme.x - 72} y={theme.y - 12} width="144" height="24" rx="12" fill={theme.color} opacity="0.1" stroke={theme.color} stroke-width="1" />
+        <text x={theme.x} y={theme.y + 4} text-anchor="middle" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="9" fill={theme.color} font-weight="500">
+          {theme.label}
+        </text>
+      </>
+    ))}
+  </svg>
+  <figcaption>Three notebooks, one split. The extra channel writes the label. The model does not get it back.</figcaption>
+</figure>

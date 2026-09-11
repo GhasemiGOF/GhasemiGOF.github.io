@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="MAE: Reconstruction Is Useful Only When the Missingness Is Meaningful">
+  <rect width="1200" height="630" fill="#f5f4f8"/>
+  <circle cx="980" cy="120" r="60" fill="#d4cde3" opacity="0.6"/>
+  <rect x="880" y="380" width="180" height="180" rx="4" fill="#d4cde3" opacity="0.4"/>
+  <line x1="120" y1="420" x2="480" y2="420" stroke="#d4cde3" stroke-width="2"/>
+  <line x1="120" y1="460" x2="380" y2="460" stroke="#d4cde3" stroke-width="1.5" opacity="0.7"/>
+  <line x1="120" y1="500" x2="300" y2="500" stroke="#d4cde3" stroke-width="1.5" opacity="0.5"/>
+  <text x="120" y="264" font-family="Georgia, serif" font-size="28" fill="#7a6e99">MAE: Reconstruction Is</text>
+    <text x="120" y="300" font-family="Georgia, serif" font-size="28" fill="#7a6e99">Useful Only When the</text>
+    <text x="120" y="336" font-family="Georgia, serif" font-size="28" fill="#7a6e99">Missingness Is Meaningful</text>
+</svg>

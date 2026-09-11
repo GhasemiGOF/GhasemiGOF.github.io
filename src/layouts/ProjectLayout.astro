@@ -1,0 +1,114 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  headings?: Heading[];
+  others?: CollectionEntry<'projects'>[];
+}
+
+const { project, headings = [], others = [] } = Astro.props;
+const { title, tagline, description, icon, tag, status, keywords } = project.data;
+
+const icons: Record<CollectionEntry<'projects'>['data']['icon'], string> = {
+  shadonet: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="8" r="2"/><circle cx="19" cy="8" r="2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M7 15l3-2M17 15l-3-2M7 10l5 2M17 10l-5 2"/></svg>`,
+  spore: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="14" rx="6" ry="4"/><path d="M8 10c0-2.2 1.8-4 4-4s4 1.8 4 4"/><path d="M12 6V4M9 7l-1-2M15 7l1-2"/></svg>`,
+  topo: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18l4-8 4 5 4-10 4 7"/><circle cx="8" cy="10" r="1.5" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="16" cy="5" r="1.5" fill="currentColor" stroke="none"/></svg>`,
+};
+---
+
+<BaseLayout
+  title={`${title} | Mahsa Ghasemi`}
+  description={description}
+  keywords={keywords}
+  canonical={new URL(`/projects/${project.id}`, Astro.site).href}
+>
+  <article class="project-page">
+    <p class="project-back">
+      <a href="/projects">← All projects</a>
+    </p>
+
+    <header class="project-hero">
+      <div class="project-hero__top">
+        <div class="project-hero__icon" set:html={icons[icon]} />
+        <div class="project-hero__pills">
+          <span class="project-hero__status">{status}</span>
+          <span class="project-hero__tag">{tag}</span>
+        </div>
+      </div>
+      <p class="project-hero__eyebrow">Project</p>
+      <h1 class="project-hero__title">{title}</h1>
+      <p class="project-hero__tagline">{tagline}</p>
+      <p class="project-hero__lead">{description}</p>
+    </header>
+
+    <TableOfContents headings={headings} />
+
+    <div class="post-content">
+      <slot />
+    </div>
+
+    {
+      others.length > 0 && (
+        <nav class="project-siblings" aria-label="Other projects">
+          <p class="project-siblings__label">Other projects</p>
+          <ul>
+            {others.map((item) => (
+              <li>
+                <a href={`/projects/${item.id}`}>
+                  <strong>{item.data.title}</strong>
+                  <span>{item.data.tagline}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<script>
+  import mermaid from 'mermaid';
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'neutral',
+    fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+    securityLevel: 'loose',
+    flowchart: { curve: 'basis', padding: 16 },
+  });
+
+  async function renderMermaidDiagrams() {
+    const blocks = document.querySelectorAll(
+      'pre[data-language="mermaid"] code, pre > code.language-mermaid',
+    );
+    for (const code of blocks) {
+      const pre = code.parentElement;
+      if (!pre || pre.dataset.processed) continue;
+      const chart = code.textContent?.trim() ?? '';
+      if (!chart) continue;
+      try {
+        const id = `mermaid-${Math.random().toString(36).slice(2, 9)}`;
+        const { svg } = await mermaid.render(id, chart);
+        const figure = document.createElement('figure');
+        figure.className = 'figure figure--mermaid';
+        figure.innerHTML = svg;
+        pre.replaceWith(figure);
+      } catch {
+        pre.dataset.processed = 'error';
+      }
+    }
+  }
+
+  renderMermaidDiagrams();
+  document.addEventListener('astro:page-load', renderMermaidDiagrams);
+</script>

@@ -1,0 +1,219 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeSpotlight from '../components/home/HomeSpotlight.astro';
+import HomeExploreCard from '../components/home/HomeExploreCard.astro';
+
+const posts = await getCollection('blog', ({ data }) => data.draft !== true);
+const spotlight = posts.find((post) => post.id === 'research-notes/the-easiest-signal-is-the-wrong-task');
+
+const rooms = [
+  {
+    signal: 'The stain',
+    title: 'ShadoNet',
+    body: 'A pathologist’s click. SAM may donate a shape while I write the label. It is gone when the model runs.',
+    href: '/projects/shadonet',
+    status: 'Bioinformatics 2026',
+  },
+  {
+    signal: 'The lamp',
+    title: 'SporeAI',
+    body: 'GFP helps me name the stage. The model only sees phase. Mature is the weakest class — often bright under ordinary light, dark under fluorescence.',
+    href: '/projects/sporeai',
+    status: 'Under revision',
+  },
+  {
+    signal: 'The neighbors',
+    title: 'TopoTrack',
+    body: 'I can keep a cell’s neighbors when I match two slices. Geometry wins. Type mass falls. That bill stays in the draft.',
+    href: '/projects/topotrack',
+    status: 'Under revision',
+  },
+];
+
+const thisMonth = [
+  {
+    text: 'ShadoNet is out. The working problem is still the one the paper has to survive: morphology, or stain?',
+    href: '/projects/shadonet',
+  },
+  {
+    text: 'SporeAI and TopoTrack are with the group. Both manuscripts should be ready soon.',
+    href: '/now',
+  },
+  {
+    text: 'PanNET moves. SHIDC almost does not. I am keeping that disagreement.',
+    href: '/now',
+  },
+];
+
+const doors = [
+  {
+    label: 'Research',
+    description: 'The habit, the projects, the questions that can fail.',
+    href: '/research',
+  },
+  {
+    label: 'Writing',
+    description: 'Notes, paper readings, and a PhD journal. A map of the notebook.',
+    href: '/writing',
+  },
+  {
+    label: 'Now',
+    description: 'What has my attention this month, dated.',
+    href: '/now',
+  },
+  {
+    label: 'About',
+    description: 'Who I am, and what a paper is allowed to hide.',
+    href: '/about',
+  },
+];
+---
+
+<BaseLayout
+  title="Mahsa Ghasemi"
+  description="Ph.D. candidate at Indiana University. A public research notebook on cheap labels, privileged channels, and evaluation that matches the claim."
+>
+  <div class="home-page">
+    <header class="home-hero">
+      <div class="home-hero__identity">
+        <img
+          class="home-hero__photo"
+          src="/profile.png"
+          alt="Mahsa Ghasemi"
+          width="112"
+          height="112"
+        />
+        <div>
+          <p class="home-hero__eyebrow">Mahsa Ghasemi</p>
+          <p class="home-hero__role">
+            Ph.D. candidate in Computer Science · Indiana University
+          </p>
+        </div>
+      </div>
+
+      <h1 class="home-hero__title">
+        I keep meeting the same animal in three different rooms.
+      </h1>
+
+      <ol class="home-litany" aria-label="The extra signal in each room">
+        <li>
+          <span>The stain</span>
+          looks like a diagnosis.
+        </li>
+        <li>
+          <span>The lamp</span>
+          looks like a developmental stage.
+        </li>
+        <li>
+          <span>The neighbors</span>
+          look like a trajectory.
+        </li>
+      </ol>
+
+      <p class="home-hero__lead">
+        None of those is the biology I named. I am a machine-learning researcher.
+        What I actually do, on a good week, is decide what a label is allowed to claim.
+      </p>
+      <p class="home-hero__lead">
+        Extra information — a dye, a fluorescent marker, an automatic outline, a
+        pathologist’s click — may help me write the training target. The model that
+        has to work later does not get that extra information. I do not score it
+        as if it did.
+      </p>
+      <p class="home-hero__paper">
+        <em>ShadoNet: A Cell Detection and Classification Framework for Ki-67 Pathology Images</em>
+        — accepted, Oxford <em>Bioinformatics</em>, 2026.
+      </p>
+      <div class="home-hero__actions">
+        <a class="research-btn research-btn--primary" href="/research">Research</a>
+        <a class="research-btn research-btn--secondary" href="/cv.pdf">CV</a>
+        <a class="research-btn research-btn--secondary" href="/now">Now</a>
+      </div>
+    </header>
+
+    <section class="home-why" aria-labelledby="home-why-heading">
+      <h2 id="home-why-heading" class="visually-hidden">Why this website exists</h2>
+      <p class="home-why__kicker">Why this site is not a CV</p>
+      <p class="home-why__body">
+        Papers clean a path. This notebook keeps the path that was walked —
+        the dataset that refused to move, the metric that lost when the other
+        one won, the shortcut I named before I trained. Most people who hire
+        researchers will never see that part. I put it here anyway.
+      </p>
+    </section>
+
+    <section class="home-section-block" aria-labelledby="home-rooms-heading">
+      <header class="home-section-block__head">
+        <h2 id="home-rooms-heading" class="home-section-block__title">Three rooms</h2>
+        <p class="home-section-block__sub">
+          Same animal. Pathology, microscopy, spatial transcriptomics.
+        </p>
+      </header>
+      <div class="home-rooms">
+        {rooms.map((room) => (
+          <a class="home-room" href={room.href}>
+            <span class="home-room__signal">{room.signal}</span>
+            <h3 class="home-room__title">{room.title}</h3>
+            <p class="home-room__body">{room.body}</p>
+            <span class="home-room__status">{room.status}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="home-section-block" aria-labelledby="home-month-heading">
+      <header class="home-section-block__head">
+        <h2 id="home-month-heading" class="home-section-block__title">This month</h2>
+        <p class="home-section-block__sub">September 2026. The dated page is Now.</p>
+      </header>
+      <ul class="home-month">
+        {thisMonth.map((item) => (
+          <li>
+            <a href={item.href}>{item.text}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {spotlight && (
+      <section class="home-section-block" aria-labelledby="home-start-heading">
+        <header class="home-section-block__head">
+          <h2 id="home-start-heading" class="home-section-block__title">If you read one note</h2>
+          <p class="home-section-block__sub">
+            The house argument. Three projects. One habit.
+          </p>
+        </header>
+        <HomeSpotlight post={spotlight} />
+      </section>
+    )}
+
+    <section class="home-section-block" aria-labelledby="home-doors-heading">
+      <header class="home-section-block__head">
+        <h2 id="home-doors-heading" class="home-section-block__title">Keep going</h2>
+        <p class="home-section-block__sub">
+          The rest of the notebook is already written. These four doors are enough.
+        </p>
+      </header>
+      <div class="home-doors">
+        {doors.map((door) => (
+          <HomeExploreCard label={door.label} description={door.description} href={door.href} />
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

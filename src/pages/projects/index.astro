@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/research/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+const otherWork = [
+  {
+    title: 'Morphology-guided foundation models',
+    description:
+      'What would it mean for a pathology foundation model to understand morphology? Representation learning, probing, evaluation, and supervision that make tissue structure more explicit.',
+    href: '/blog/research-notes/foundation-models-are-powerful-but-not-magic',
+  },
+  {
+    title: 'Nucleus analysis survey',
+    description:
+      'A survey of nucleus analysis in biomedical images: detection, segmentation, classification, feature learning, and how annotation formats shape what a model can learn.',
+  },
+  {
+    title: 'HiPS presentation and related work',
+    description:
+      'Notes on hierarchical pathology representations and large-scale histology models.',
+  },
+];
+---
+
+<BaseLayout
+  title="Projects | Mahsa Ghasemi"
+  description="Current research projects: ShadoNet, SporeAI, and TopoTrack."
+>
+  <div class="project-index">
+    <header class="project-index__hero">
+      <p class="project-index__eyebrow">Projects</p>
+      <h1 class="page-heading">Three projects, one research thread.</h1>
+      <p class="lead">
+        Sparse and weak supervision, biological structure, and evaluations that test what a model
+        actually learned. Each page is a working notebook—not a week-by-week series.
+      </p>
+    </header>
+
+    <div class="research-projects-grid">
+      {projects.map((project) => (
+        <ProjectCard
+          title={project.data.title}
+          description={project.data.description}
+          href={`/projects/${project.id}`}
+          icon={project.data.icon}
+          tag={project.data.tag}
+        />
+      ))}
+    </div>
+
+    <section class="project-index__other" aria-labelledby="other-work-heading">
+      <h2 id="other-work-heading" class="home-section-heading">Also in the notebook</h2>
+      <div class="section-list">
+        {otherWork.map((item) => (
+          <section>
+            <h3>{item.href ? <a href={item.href}>{item.title}</a> : item.title}</h3>
+            <p>{item.description}</p>
+          </section>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

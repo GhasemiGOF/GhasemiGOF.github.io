@@ -1,0 +1,13 @@
+---
+interface Props {
+  title: string;
+  icon?: string;
+}
+
+const { title, icon = '✎' } = Astro.props;
+---
+
+<article class="now-writing-card">
+  <span class="now-writing-card__icon" aria-hidden="true">{icon}</span>
+  <p class="now-writing-card__text">{title}</p>
+</article>
