@@ -1,10 +1,10 @@
 /** Update these with your real links. */
 export const siteConfig = {
-  email: '',
+  email: 'mghasemi@iu.edu',
   github: 'https://github.com/GhasemiGOF',
   scholar: 'https://scholar.google.com/citations?hl=en&user=mG7rRvEAAAAJ',
-  linkedin: '',
-  orcid: '',
+  linkedin: 'https://linkedin.com/in/mahsa-gof',
+  orcid: 'https://orcid.org/0009-0001-2178-9499',
 };
 
 export type FooterIcon = 'email' | 'github' | 'scholar' | 'linkedin' | 'orcid';
