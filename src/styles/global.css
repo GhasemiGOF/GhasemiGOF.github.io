@@ -1443,6 +1443,102 @@ a:hover {
 .callout--paper-insight { border-left-color: #6e7a99; }
 .callout--update { border-left-color: #9a8b6e; }
 
+/* Embargo: blur unpublished results / metrics */
+
+.embargo {
+  position: relative;
+  margin: calc(var(--spacing-unit) * 0.75) 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--callout-bg);
+  overflow: hidden;
+  min-height: 11rem;
+}
+
+.embargo__blur {
+  padding: 1rem 1.15rem 1.25rem;
+  filter: blur(8px);
+  opacity: 0.4;
+  pointer-events: none;
+  user-select: none;
+  max-height: 22rem;
+  overflow: hidden;
+}
+
+.embargo__blur > :first-child {
+  margin-top: 0;
+}
+
+.embargo__blur > :last-child {
+  margin-bottom: 0;
+}
+
+.embargo__card {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(22rem, calc(100% - 2rem));
+  padding: 1.15rem 1.25rem;
+  text-align: center;
+  background: color-mix(in srgb, #fff 92%, var(--callout-bg));
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--text) 12%, transparent);
+}
+
+.embargo__label {
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin: 0 0 0.45rem;
+}
+
+.embargo__text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.embargo__text a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+}
+
+.embargo__text a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.embargo__placeholder {
+  margin-top: 0.85rem;
+  height: 7.5rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background:
+    repeating-linear-gradient(
+      -12deg,
+      color-mix(in srgb, var(--border) 55%, transparent) 0 10px,
+      color-mix(in srgb, var(--callout-bg) 80%, #fff) 10px 20px
+    );
+}
+
+@media (max-width: 640px) {
+  .embargo__blur {
+    max-height: 16rem;
+    filter: blur(6px);
+  }
+
+  .embargo__card {
+    width: min(20rem, calc(100% - 1.5rem));
+    padding: 1rem 1.1rem;
+  }
+}
+
 /* GFM alerts as callouts */
 
 .post-content blockquote:has(> p:first-child strong) {

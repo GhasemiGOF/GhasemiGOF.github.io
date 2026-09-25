@@ -1,10 +1,10 @@
 ---
 title: TopoTrack
 tagline: Structure-aware trajectories in spatial transcriptomics.
-description: Couple two spatial-transcriptomics slices with fused Gromov–Wasserstein. Expression sets the cross-slice cost; multi-view tissue structure (Euclidean, geodesic, local context) sets the within-slice geometry. Held-out, that improves neighborhood preservation over SpaTrack and costs type mass.
+description: Couple two spatial-transcriptomics slices with fused Gromov–Wasserstein. Expression sets the cross-slice cost; multi-view tissue structure (Euclidean, geodesic, local context) sets the within-slice geometry. Quantitative held-out comparisons are withheld while the manuscript is under revision.
 icon: topo
 tag: Spatial biology
-status: In progress
+status: Under revision
 order: 3
 keywords:
     - TopoTrack
@@ -159,43 +159,31 @@ A pretty force-directed plot of \(T\) is not a result. The metrics I keep on the
 
 I do **not** average these into one score. Geometry and type can move in opposite directions. That opposition is the result.
 
-Synthetic identity (known descendants after a warp) is the only place I have ground-truth correspondence. Frozen default TopoTrack-G does **not** beat SpaTrack there (`gt_diag_mass_frac` 0.466 vs 0.662). A ceilinged earlier synthetic (100% top-1 for both) established nothing. I will not mix a later tuned synthetic (Regime B, 0.777) into the held-out table.
+Synthetic identity (known descendants after a warp) is the only place I have ground-truth correspondence. Frozen default TopoTrack-G does **not** beat SpaTrack there on the frozen synthetic. A ceilinged earlier synthetic established nothing. I will not mix a later tuned synthetic into the held-out table. Quantitative synthetic and held-out numbers stay in the manuscript draft.
 
 ## What the held-out numbers are allowed to say
 
-Seven genuine held-out units: lung full, midbrain E12→E14 (300 and full), midbrain E14→E16 (300 and full), axolotl D10→D15 and D15→D20. Probe/development units are excluded. Tie tolerances: spatial 0.005, kNN 0.010, type 0.010.
-
-**Did TTG generalize?** Partially. TTG-BM beats frozen TopoTrack-G on kNN@8 and spatial \(r\) on **7/7** units (mean \(\Delta\)kNN \(=+0.109\), \(\Delta\)spatial \(=+0.040\)) and **loses type mass on 6/7** (mean \(\Delta\)type \(=-0.044\)). TTG-BM-P2 then adds more kNN (mean \(+0.049\)) with almost no extra spatial or type change.
-
-**Versus SpaTrack, on real held-out pairs:** yes on geometry, no on type. Frozen TopoTrack-G, TTG-BM, and TTG-BM-P2 each beat SpaTrack **7/7** on spatial \(r\) and kNN@8. Type mass for default G is mixed (1 win / 4 tie / 2 loss). TTG-BM and TTG-BM-P2 **lose type 7/7**.
-
-**Versus the strongest competitors:** default TopoTrack-G does not win. TTG-BM-P2 is the strongest TopoTrack variant on geometry (best kNN and spatial on 5/7). It can close or beat rematched moscot on midbrain and lung geometry. It loses axolotl D10 kNN to moscot. **No TopoTrack variant wins type mass on any held-out unit.** SOCS is best on type on 4/7.
-
-Do not claim overall superiority.
-
-![Grouped bars of spatial correlation on seven held-out units for SpaTrack, TopoTrack-G, TTG-BM-P2, and moscot.](/images/projects/topotrack/fig_heldout_spatial.png)
-
-*Spatial \(r\). Structure-aware FGW lifts the coupling over SpaTrack on every held-out unit. Axolotl D10 is where PASTE2 still wins the raw number (0.951 vs 0.928).*
-
-![Grouped bars of kNN@8 neighborhood preservation on the same seven held-out units.](/images/projects/topotrack/fig_heldout_knn.png)
-
-*kNN@8. TTG-BM-P2 is the geometry method. Moscot still wins both axolotl pairs. Full midbrain slices are harder for everyone because the neighborhood is larger.*
-
-![Bar chart of mean same-label transport mass; SOCS is highest, TTG-BM-P2 is lowest among the TopoTrack family.](/images/projects/topotrack/fig_type_tradeoff.png)
-
-*Mean same-label mass across the same seven units. The kNN I bought with TTG-BM-P2 is paid for here. SOCS uses annotations as structure on several of these datasets; that is a fairness caveat, and also why I will not hide the bar.*
-
-Selected held-out spatial \(r\):
-
-| Unit | SpaTrack | TopoTrack-G | TTG-BM-P2 | moscot |
-| --- | --- | --- | --- | --- |
-| Lung full | 0.926 | 0.957 | **0.981** | 0.978 |
-| Midbrain E12→E14 full | 0.919 | 0.936 | **0.965** | 0.952 |
-| Midbrain E14→E16 full | 0.957 | 0.967 | **0.984** | 0.971 |
-| Axolotl D10→D15 | 0.693 | 0.740 | 0.928 | 0.922 |
-| Axolotl D15→D20 | 0.802 | **0.852** | 0.848 | 0.808 |
-
-kNN@8 on the same rows: TTG-BM-P2 is 0.306 / 0.077 / 0.203 / 0.302 / 0.378. SpaTrack is 0.053 / 0.022 / 0.060 / 0.068 / 0.064. That is the geometry claim. Type mass on axolotl D10→D15 goes 0.447 (G) → 0.239 (P2). That is the cost.
+<aside class="embargo" role="region" aria-label="Results withheld pending publication">
+  <div class="embargo__card">
+    <p class="embargo__label">Paper under revision</p>
+    <p class="embargo__text">Detailed held-out results and metrics are hidden while the manuscript is under review. For more information, <a href="mailto:mghasemi@iu.edu">email me</a>.</p>
+  </div>
+  <div class="embargo__blur" aria-hidden="true">
+    <p>Held-out comparisons across lung, midbrain, and axolotl pairs. Geometry families versus type-mass families. Competitor baselines including SpaTrack and related transport methods.</p>
+    <table>
+      <thead>
+        <tr><th>Unit</th><th>SpaTrack</th><th>TopoTrack</th><th>Competitor</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Lung</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Midbrain</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Axolotl</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p>Spatial, neighborhood-preservation, and type-mass figures stay in the manuscript draft.</p>
+    <div class="embargo__placeholder"></div>
+  </div>
+</aside>
 
 ## What remains unresolved
 
@@ -219,7 +207,7 @@ This sits downstream of the representation questions in [what should pathology f
 ## Working notes
 
 - Current framing: structure-aware slice coupling. Expression \(M\), multi-view \(G\), fused Gromov–Wasserstein.
-- Current best geometry object: TTG-BM-P2. Current default story object: TopoTrack-G.
-- Current evidence: held-out 7/7 spatial and kNN wins vs SpaTrack; 0/7 type wins vs the field; synthetic identity does not favor default G.
+- Current best geometry object and default story object live in the draft under revision.
+- Current evidence: held under revision with the manuscript. The public page keeps the evaluation families; the numbers stay off the open web.
 - Current risk: telling a tissue story while the plan buys neighborhoods by smearing identity.
-- Next: a failure contract—one spatial shortcut the method is supposed to refuse, and the plot that would show it if the method failed. The type-mass drop on axolotl D10 is already a candidate.
+- Next: a failure contract—one spatial shortcut the method is supposed to refuse, and the plot that would show it if the method failed.

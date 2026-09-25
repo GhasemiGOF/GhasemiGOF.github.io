@@ -4,7 +4,7 @@ tagline: Weak supervision for Bacillus sporulation in microscopy.
 description: Two-part method for Bacillus subtilis sporulation — build cell-level labels from Omnipose, GFP, and phase-bright centers, then train a phase-only 2D nnU-Net that is not allowed to see fluorescence at test time.
 icon: spore
 tag: Microbiology
-status: In progress
+status: Under revision
 order: 2
 keywords:
     - SporeAI
@@ -367,26 +367,29 @@ A developing click is mapped to that collection’s stage ID. A `mature.spore` c
 
 ## What the current numbers are allowed to say
 
-Phase-only 7-class model, 71 fields, \(r = 15\) px:
-
-| Metric | Value |
-| --- | --- |
-| Annotated cells | 14,370 |
-| Detection rate | 0.958 |
-| Classification accuracy (detected) | 0.892 |
-| Macro-F1 (detected) | 0.811 |
-| End-to-end accuracy | 0.855 |
-
-Weighted F1 is 0.891 and is dominated by vegetative cells. That is why I look at per-class numbers before I let myself feel good.
-
-<figure class="figure">
-  <img src="/images/projects/sporeai/fig_click_metrics.svg" alt="Grouped bars of precision, recall, and F1 for seven classes, using one color per metric. Stage 1 F1 is 0.61; mature F1 is 0.59; mid-stages are high." />
-  <figcaption>Among 13,772 detected clicks (<code>corectevalifinal.ipynb</code>). Same three colors for every class: precision, recall, F1. Stage 1 F1 is 0.615, not a collapse. Mature is the weakest class (F1 0.587, recall 0.505). Stage 3 recall is 0.990.</figcaption>
-</figure>
-
-The confusion is not only adjacent-stage leakage. Of 283 detected stage 1 cells, 170 are correct and 113 are called vegetative. Mature leaks into vegetative, stage 4, and stage 5. Mid-stage developing classes are the ones GFP could help label, and they are the ones the phase-only model actually holds.
-
-That is the honest reading: **the network inherited the structure of the supervision**, including its blind spots.
+<aside class="embargo" role="region" aria-label="Results withheld pending publication">
+  <div class="embargo__card">
+    <p class="embargo__label">Paper under revision</p>
+    <p class="embargo__text">Detailed results and metrics are hidden while the manuscript is under review. For more information, <a href="mailto:mghasemi@iu.edu">email me</a>.</p>
+  </div>
+  <div class="embargo__blur" aria-hidden="true">
+    <p>Phase-only evaluation on expert clicks. Detection, classification, and end-to-end scores; per-class precision / recall / F1; confusion structure.</p>
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Annotated cells</td><td>—</td></tr>
+        <tr><td>Detection rate</td><td>—</td></tr>
+        <tr><td>Classification accuracy</td><td>—</td></tr>
+        <tr><td>Macro-F1</td><td>—</td></tr>
+        <tr><td>End-to-end accuracy</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p>Per-class tails, vegetative-heavy aggregates, and the metric figure stay in the manuscript draft.</p>
+    <div class="embargo__placeholder"></div>
+  </div>
+</aside>
 
 <aside class="callout callout--research-question" role="note">
 <p class="callout-label">Research question</p>
@@ -435,5 +438,5 @@ I do not have a settled architecture story, and I am not going to invent one on 
 
 - Current framing: two-part pipeline. Labels from Omnipose + GFP + phase centers + a stage prior. Learning on phase only. The reader-facing object is SporeVision — phase field, circles, stage color.
 - Current risk: late-stage, high-contrast spores, and GFP-supported mid-stages, making the problem look easier than the early and mature tails.
-- Current evidence: 0.855 end-to-end at clicks is real, and it is also a vegetative-heavy number. Mature, not stage 1, is the lowest F1.
+- Current evidence: held under revision with the manuscript. The public page keeps the protocol; the numbers stay off the open web.
 - Next: finish the soft-stage comparison, and write down, for each label type I actually have, the biological claim it is allowed to support.
