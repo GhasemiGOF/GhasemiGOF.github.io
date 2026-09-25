@@ -159,7 +159,16 @@ A pretty force-directed plot of \(T\) is not a result. The metrics I keep on the
 
 I do **not** average these into one score. Geometry and type can move in opposite directions. That opposition is the result.
 
-Synthetic identity (known descendants after a warp) is the only place I have ground-truth correspondence. Frozen default TopoTrack-G does **not** beat SpaTrack there on the frozen synthetic. A ceilinged earlier synthetic established nothing. I will not mix a later tuned synthetic into the held-out table. Quantitative synthetic and held-out numbers stay in the manuscript draft.
+<aside class="embargo" role="region" aria-label="Results withheld pending publication">
+  <div class="embargo__card">
+    <p class="embargo__label">Paper under revision</p>
+    <p class="embargo__text">Synthetic identity scores and held-out comparisons are hidden while the manuscript is under review. For more information, <a href="mailto:mghasemi@iu.edu">email me</a>.</p>
+  </div>
+  <div class="embargo__blur" aria-hidden="true">
+    <p>Synthetic identity (known descendants after a warp). Frozen default TopoTrack-G versus SpaTrack. Ceilinged and tuned synthetic regimes. Quantitative numbers withheld.</p>
+    <div class="embargo__placeholder"></div>
+  </div>
+</aside>
 
 ## What the held-out numbers are allowed to say
 
@@ -187,12 +196,23 @@ Synthetic identity (known descendants after a warp) is the only place I have gro
 
 ## What remains unresolved
 
-- Optional ε / PCA / paper-default sweeps for SOCS, PASTE2, TOAST, DeST-OT were not run on this freeze.
-- STORIES is trained and scored under different FGW settings.
-- Default TopoTrack-G was picked on a lung ablation, so lung full is not a fully independent test of the *default* (it is held-out for TTG-BM / P2).
-- Axolotl type mixes missing classes (D10 lacks rIPC; D20 lacks reaEGC). The D10 type collapse may partly be that.
-- Whether TTG-BM-P2’s extra kNN (with a *higher* Hill number than TTG-BM) is over-smoothing cannot be decided without identity ground truth on real tissue.
-- Git could not be pinned on that freeze; reproducibility is file SHA-256 plus sample-identity hashes.
+<aside class="embargo" role="region" aria-label="Results withheld pending publication">
+  <div class="embargo__card">
+    <p class="embargo__label">Paper under revision</p>
+    <p class="embargo__text">Dataset-specific findings and unresolved quantitative issues are hidden while the manuscript is under review. For more information, <a href="mailto:mghasemi@iu.edu">email me</a>.</p>
+  </div>
+  <div class="embargo__blur" aria-hidden="true">
+    <ul>
+      <li>Optional sweeps for competitor methods not run on this freeze.</li>
+      <li>STORIES trained and scored under different FGW settings.</li>
+      <li>Default selection vs held-out status for lung.</li>
+      <li>Axolotl type-mix caveats and type-mass behavior.</li>
+      <li>Whether extra neighborhood preservation is over-smoothing.</li>
+      <li>Reproducibility pins for the freeze.</li>
+    </ul>
+    <div class="embargo__placeholder"></div>
+  </div>
+</aside>
 
 This sits downstream of the representation questions in [what should pathology foundation models actually learn](/blog/research-questions/what-should-pathology-foundation-models-actually-learn) and [can we measure biological understanding](/blog/research-questions/can-we-measure-biological-understanding): a transport plan is another place where a model can look biologically fluent while following a shortcut.
 
@@ -202,7 +222,7 @@ This sits downstream of the representation questions in [what should pathology f
 - How much of the gain comes from better neighborhoods versus a more flexible FGW mode?
 - Should evaluation recover known lineages, known spatial patterns, or both at once—and what do I do when those two disagree, as they do here?
 - What is the smallest synthetic case that makes the spatial term *necessary* without hitting a 100% ceiling?
-- Is there a reliability gate on \(G\) that keeps type mass from falling off a cliff on axolotl?
+- Is there a reliability gate on \(G\) that keeps identity from collapsing when geometry improves?
 
 ## Working notes
 

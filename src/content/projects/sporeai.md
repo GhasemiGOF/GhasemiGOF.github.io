@@ -34,10 +34,16 @@ This is the interface we are working toward. A phase field in. Cells as circles.
 
 This is what the images actually look like. Phase contrast, not H&E. Rods, a few phase-bright interiors, a mixed field.
 
-<figure class="figure">
-  <img src="/images/projects/sporeai/fig_field_phase.png" alt="Phase-contrast field Bacillus_054 next to a color prediction map, with a zoomed cluster of rods. Vegetative is green, stage 5 purple, mature red in the stored complete class." />
-  <figcaption>Field <code>Bacillus_054</code>. Left is the phase the model is allowed to see. Right is a phase-only prediction. The zoom is so a reader who has never looked at this stain can see a rod and a bright spore. On disk the red class is still stored as <code>complete</code>; in prose I call it mature.</figcaption>
-</figure>
+<aside class="embargo" role="region" aria-label="Results withheld pending publication">
+  <div class="embargo__card">
+    <p class="embargo__label">Paper under revision</p>
+    <p class="embargo__text">Prediction overlays and quantitative field results are hidden while the manuscript is under review. For more information, <a href="mailto:mghasemi@iu.edu">email me</a>.</p>
+  </div>
+  <div class="embargo__blur" aria-hidden="true">
+    <p>Phase field next to a phase-only prediction map, with a zoomed cluster of rods. Class colors and stage counts withheld.</p>
+    <div class="embargo__placeholder"></div>
+  </div>
+</aside>
 
 <span class="margin-note">GFP is privileged information. The network that has to work later is not allowed to depend on it.</span>
 
@@ -162,10 +168,16 @@ The class IDs in `dataset.json` are historical. Biological order is not index or
 | 4 | stage 5 | 5 |
 | 3 | mature | 6 |
 
-<figure class="figure">
-  <img src="/images/projects/sporeai/fig_train_mix.svg" alt="Bar chart of training cell counts. Vegetative is about 16,000 cells; stage 1 and stage 5 are a few hundred." />
-  <figcaption>28,161 Omnipose instances on the 179 training maps. Vegetative dominates. Stage 1 (723) and stage 5 (504) are the rare developing classes — which is already a hint about where the model will fail.</figcaption>
-</figure>
+<aside class="embargo" role="region" aria-label="Results withheld pending publication">
+  <div class="embargo__card">
+    <p class="embargo__label">Paper under revision</p>
+    <p class="embargo__text">Training-set class counts are hidden while the manuscript is under review. For more information, <a href="mailto:mghasemi@iu.edu">email me</a>.</p>
+  </div>
+  <div class="embargo__blur" aria-hidden="true">
+    <p>Bar chart of training cell counts across vegetative and developing stages. Exact totals withheld.</p>
+    <div class="embargo__placeholder"></div>
+  </div>
+</aside>
 
 ## How a soft label is found
 
@@ -238,103 +250,21 @@ vec[background] = 0
 
 ### 3. What that looks like
 
-A few conservative-preset examples (`python generate_7class_soft_labels.py --show-examples`). Zeros are omitted; the highlighted number is the mode.
+A few conservative-preset soft-label examples. Exact probability vectors and training soft-mass plots are under revision.
 
-<figure class="soft-examples">
-  <p class="soft-examples__legend">
-    <span><span class="soft-examples__swatch is-veg"></span>veg</span>
-    <span><span class="soft-examples__swatch is-s1"></span>s1</span>
-    <span><span class="soft-examples__swatch is-s2"></span>s2</span>
-    <span><span class="soft-examples__swatch is-s3"></span>s3</span>
-    <span><span class="soft-examples__swatch is-s4"></span>s4</span>
-    <span><span class="soft-examples__swatch is-s5"></span>s5</span>
-    <span><span class="soft-examples__swatch is-mature"></span>mature</span>
-  </p>
-  <div class="soft-example">
-    <div class="soft-example__head">
-      <p class="soft-example__case">Vegetative, no GFP</p>
-      <p class="soft-example__mass"><b>veg 0.73</b><span>s1 0.27</span></p>
-    </div>
-    <div class="soft-example__bar" role="img" aria-label="vegetative 0.73, stage 1 0.27">
-      <span class="is-veg" style="flex:73 1 0"></span>
-      <span class="is-s1" style="flex:27 1 0"></span>
-    </div>
+<aside class="embargo" role="region" aria-label="Results withheld pending publication">
+  <div class="embargo__card">
+    <p class="embargo__label">Paper under revision</p>
+    <p class="embargo__text">Soft-label example vectors and mass plots are hidden while the manuscript is under review. For more information, <a href="mailto:mghasemi@iu.edu">email me</a>.</p>
   </div>
-  <div class="soft-example">
-    <div class="soft-example__head">
-      <p class="soft-example__case">Vegetative, faint GFP</p>
-      <p class="soft-example__mass"><b>veg 0.60</b><span>s1 0.40</span></p>
-    </div>
-    <div class="soft-example__bar" role="img" aria-label="vegetative 0.60, stage 1 0.40">
-      <span class="is-veg" style="flex:60 1 0"></span>
-      <span class="is-s1" style="flex:40 1 0"></span>
-    </div>
+  <div class="embargo__blur" aria-hidden="true">
+    <p>Per-case soft stage vectors (vegetative / stage 1–5 / mature) and mean soft-mass bars across the training maps.</p>
+    <div class="embargo__placeholder"></div>
+    <div class="embargo__placeholder"></div>
   </div>
-  <div class="soft-example">
-    <div class="soft-example__head">
-      <p class="soft-example__case">Vegetative, bright GFP in a Stage 3 field</p>
-      <p class="soft-example__mass"><b>veg 0.60</b><span>s1 0.09</span><span>s3 0.31</span></p>
-    </div>
-    <div class="soft-example__bar" role="img" aria-label="vegetative 0.60, stage 1 0.09, stage 3 0.31">
-      <span class="is-veg" style="flex:60 1 0"></span>
-      <span class="is-s1" style="flex:9 1 0"></span>
-      <span class="is-s3" style="flex:31 1 0"></span>
-    </div>
-  </div>
-  <div class="soft-example">
-    <div class="soft-example__head">
-      <p class="soft-example__case">Stage 3, strong GFP, stage 4 neighbors</p>
-      <p class="soft-example__mass"><span>s2 0.03</span><b>s3 0.71</b><span>s4 0.26</span></p>
-    </div>
-    <div class="soft-example__bar" role="img" aria-label="stage 2 0.03, stage 3 0.71, stage 4 0.26">
-      <span class="is-s2" style="flex:3 1 0"></span>
-      <span class="is-s3" style="flex:71 1 0"></span>
-      <span class="is-s4" style="flex:26 1 0"></span>
-    </div>
-  </div>
-  <div class="soft-example">
-    <div class="soft-example__head">
-      <p class="soft-example__case">Mature, white spore</p>
-      <p class="soft-example__mass"><span>s4 0.05</span><span>s5 0.06</span><b>mature 0.89</b></p>
-    </div>
-    <div class="soft-example__bar" role="img" aria-label="stage 4 0.05, stage 5 0.06, mature 0.89">
-      <span class="is-s4" style="flex:5 1 0"></span>
-      <span class="is-s5" style="flex:6 1 0"></span>
-      <span class="is-mature" style="flex:89 1 0"></span>
-    </div>
-  </div>
-  <div class="soft-example">
-    <div class="soft-example__head">
-      <p class="soft-example__case">Mature, leftover GFP</p>
-      <p class="soft-example__mass"><span>s4 0.15</span><span>s5 0.25</span><b>mature 0.60</b></p>
-    </div>
-    <div class="soft-example__bar" role="img" aria-label="stage 4 0.15, stage 5 0.25, mature 0.60">
-      <span class="is-s4" style="flex:15 1 0"></span>
-      <span class="is-s5" style="flex:25 1 0"></span>
-      <span class="is-mature" style="flex:60 1 0"></span>
-    </div>
-  </div>
-  <div class="soft-example">
-    <div class="soft-example__head">
-      <p class="soft-example__case">Mature, weak evidence</p>
-      <p class="soft-example__mass"><span>veg 0.31</span><span>s4 0.04</span><span>s5 0.05</span><b>mature 0.60</b></p>
-    </div>
-    <div class="soft-example__bar" role="img" aria-label="vegetative 0.31, stage 4 0.04, stage 5 0.05, mature 0.60">
-      <span class="is-veg" style="flex:31 1 0"></span>
-      <span class="is-s4" style="flex:4 1 0"></span>
-      <span class="is-s5" style="flex:5 1 0"></span>
-      <span class="is-mature" style="flex:60 1 0"></span>
-    </div>
-  </div>
-  <figcaption>The hard name stays the usual mode. The interesting mass is the leak: veg↔stage 1, stage 3↔4, mature that might still be late developing, mature that might still be vegetative.</figcaption>
-</figure>
+</aside>
 
-<figure class="figure">
-  <img src="/images/projects/sporeai/fig_soft_mass.svg" alt="Stacked bars showing that each hard class keeps most of its probability, with leftover mass on neighboring stages." />
-  <figcaption>Mean soft vectors on the 179 training maps. The claimed class stays the mode. Neighbors get the remainder.</figcaption>
-</figure>
-
-Each case writes `Bacillus_XXX.soft_labels.npz` with `training_prob_volume` of shape `(8, H, W)`, plus a CSV of per-cell scores if I want to audit a field. Soft trainers consume the volume. The headline test numbers below were still scored from hard 7-class training. I am not going to pretend the soft run has already won.
+Each case writes `Bacillus_XXX.soft_labels.npz` with `training_prob_volume` of shape `(8, H, W)`, plus a CSV of per-cell scores if I want to audit a field. Soft trainers consume the volume. Headline test numbers are scored from hard 7-class training and stay in the draft. I am not going to pretend the soft run has already won.
 
 ## Part 2 — nnU-Net, phase only
 
@@ -428,11 +358,11 @@ I do not have a settled architecture story, and I am not going to invent one on 
 ## Open questions
 
 - What is the right unit of supervision: cell, field, well, or time point?
-- Which sporulation stages am I actually claiming to detect, given that stage 1 still loses a large fraction to vegetative and mature is the weakest class?
+- Which sporulation stages am I actually claiming to detect, given the hard tails of the stage distribution?
 - How should disagreement between morphology and fluorescence be treated—as noise, as a feature, or as a separate evaluation slice?
 - Did the greedy threshold search on test annotations couple label-generation hyperparameters to the evaluation split? The weights never saw test *images*, but the GFP/phase thresholds might have seen test *clicks*.
 - What is the analogue of ShadoNet’s “boring validation set” for this data—fields where late spores are rare and the shortcut cannot hide?
-- Soft vs hard 7-class, and GFP-privileged teacher–student vs phase-only: both are implemented. Neither has a finished number I am willing to put next to the table above.
+- Soft vs hard 7-class, and GFP-privileged teacher–student vs phase-only: both are implemented. Neither has a finished public number next to the evaluation protocol.
 
 ## Working notes
 
