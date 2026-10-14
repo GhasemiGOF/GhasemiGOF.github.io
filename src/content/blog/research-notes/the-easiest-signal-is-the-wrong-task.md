@@ -42,7 +42,7 @@ I am a Ph.D. student. I write code. I train models. What I actually do, on a goo
 
 The seductive failure here is the stain. Brown looks like “positive.” Blue looks like “negative.” A model can get a respectable score by reading the dye and ignoring the nucleus. Detection is the easy number — 0.89 on the set I trust. Classification is where the shortcut shows up. One collection of images moves. Another almost does not. I keep the one that refuses to move. Averaging it away is how a stain detector becomes a morphology paper.
 
-The paper is in *Bioinformatics*, 2026. The working problem survived the paper. That is the point.
+The paper is in *Bioinformatics* 42(10), btag704 ([doi:10.1093/bioinformatics/btag704](https://doi.org/10.1093/bioinformatics/btag704)). The working problem survived the paper. That is the point.
 
 ## Room two: the glow
 

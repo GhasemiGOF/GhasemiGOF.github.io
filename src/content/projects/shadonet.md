@@ -4,7 +4,7 @@ tagline: Morphology-aware nucleus analysis from sparse supervision.
 description: Single-stage Ki-67 nucleus detection and classification. Human centers name the object; SAM supplies optional shape; a fully convolutional network regresses class-specific proximity maps with rotation-aware SIoU and Hausdorff losses.
 icon: shadonet
 tag: Computational pathology
-status: Paper accepted
+status: Published
 order: 1
 keywords:
     - ShadoNet
@@ -22,7 +22,7 @@ This is the working page for ShadoNet. I used to keep a week-by-week development
 <aside class="callout callout--update" role="note">
 <p class="callout-label">Paper</p>
 <div class="callout-body">
-<p><em>ShadoNet: A Cell Detection and Classification Framework for Ki-67 Pathology Images</em> was accepted at Oxford <em>Bioinformatics</em>.</p>
+<p><em>ShadoNet: A Cell Detection and Classification Framework for Ki-67 Pathology Images</em> is published in <em>Bioinformatics</em>, volume 42, issue 10, btag704 (28 September 2026). <a href="https://doi.org/10.1093/bioinformatics/btag704">doi:10.1093/bioinformatics/btag704</a>.</p>
 </div>
 </aside>
 
@@ -227,7 +227,7 @@ I keep a “boring validation set”—patches chosen not for difficulty but for
 
 ## What the current numbers are allowed to say
 
-These are the accepted-paper tables, not the older `NETnewClassSam` dump I had on this page. Bold is the best entry in that column for the dataset. PNET is reported without a fold std.
+These are the published-paper tables, not the older `NETnewClassSam` dump I had on this page. Bold is the best entry in that column for the dataset. PNET is reported without a fold std.
 
 <figure class="figure">
   <img src="/images/projects/shadonet/fig_paper_table1.png" alt="Paper Table 1. Detection and classification precision, recall, and F1 for CellViT, NuLite, Hover-Net, Baseline, and ShadoNet on NETnewClass, BCD, and PNET." />
@@ -356,7 +356,7 @@ None of these are solved. They are named.
 
 ## The paper
 
-*ShadoNet: A Cell Detection and Classification Framework for Ki-67 Pathology Images* was accepted at Oxford *Bioinformatics*. The paper still has to explain not only what worked, but why center supervision is scientifically reasonable for the morphology claims. If the introduction reads like a detection paper with sparse labels as a footnote, the argument is incomplete.
+*ShadoNet: A Cell Detection and Classification Framework for Ki-67 Pathology Images* is published in *Bioinformatics* 42(10), btag704 ([doi:10.1093/bioinformatics/btag704](https://doi.org/10.1093/bioinformatics/btag704)), 28 September 2026. The paper still has to explain not only what worked, but why center supervision is scientifically reasonable for the morphology claims. If the introduction reads like a detection paper with sparse labels as a footnote, the argument is incomplete.
 
 Writing forced cuts I had avoided while coding: architecture details that did not connect to a named failure mode, ablations I ran without a hypothesis, language implying full segmentation when the person only clicked.
 
@@ -369,8 +369,14 @@ Related: [what makes a medical AI paper convincing](/blog/research-notes/what-ma
   title={ShadoNet: A Cell Detection and Classification Framework for Ki-67 Pathology Images},
   author={Ghasemi, Mahsa and Xing, Fuyong and Cornish, Toby C and Ghosh, Debashis and Bian, Jiang and Zhang, Xuhong},
   journal={Bioinformatics},
+  volume={42},
+  number={10},
+  pages={btag704},
   year={2026},
-  note={Accepted}
+  month={sep},
+  publisher={Oxford University Press},
+  doi={10.1093/bioinformatics/btag704},
+  url={https://doi.org/10.1093/bioinformatics/btag704}
 }
 ```
 
@@ -385,7 +391,7 @@ A reader who is not embedded in these notes should still be able to answer one q
 
 ## Working notes
 
-- Paper: accepted at Oxford *Bioinformatics* — *ShadoNet: A Cell Detection and Classification Framework for Ki-67 Pathology Images*.
+- Paper: published in *Bioinformatics* 42(10), btag704 (28 September 2026) — [doi:10.1093/bioinformatics/btag704](https://doi.org/10.1093/bioinformatics/btag704).
 - Current supervision: human centers + class; SAM shape when `sam_full` (or a `sam_cell_p*` fraction) accepts the mask; circles otherwise.
 - Current objective: MSE + rotation-aware SIoU + Hausdorff DT, typically 0.8 / 0.1 / 0.1.
 - Current evidence (paper): NETnewClass detect F1 0.89, classify F1 0.81; BCD 0.80 / 0.77; PNET 0.84 / 0.76. SHIDC classify F1 0.63 vs Hover-Net 0.56. Dominant error is other→negative.
